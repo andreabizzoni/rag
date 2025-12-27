@@ -13,3 +13,8 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "timescale-vector>=0.0.7",
 ]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
+]

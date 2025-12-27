@@ -4,12 +4,6 @@ import pandas as pd
 from database.vector_store import VectorStore
 from timescale_vector.client import uuid_from_time
 
-# Initialize VectorStore
-vec = VectorStore()
-
-# Read the CSV file
-df = pd.read_csv("../data/faq_dataset.csv", sep=";")
-
 
 # Prepare data for insertion
 def prepare_record(row):
@@ -47,9 +41,15 @@ def prepare_record(row):
     )
 
 
-records_df = df.apply(prepare_record, axis=1)
+if __name__ == "__main__":
+    # Initialize VectorStore
+    vec = VectorStore()
 
-# Create tables and insert data
-vec.create_tables()
-vec.create_index()  # DiskAnnIndex
-vec.upsert(records_df)
+    # Read the CSV file
+    df = pd.read_csv("../data/faq_dataset.csv", sep=";")
+    records_df = df.apply(prepare_record, axis=1)
+
+    # Create tables and insert data
+    vec.create_tables()
+    vec.create_index()  # DiskAnnIndex
+    vec.upsert(records_df)
